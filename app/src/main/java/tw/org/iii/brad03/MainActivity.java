@@ -1,5 +1,7 @@
 package tw.org.iii.brad03;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,12 +35,40 @@ public class MainActivity extends AppCompatActivity {
 
         if (result.equals("3A0B")){
             // WINNER
+            showDialog(true);
         }else if (intCounter == 10){
             // Loser
+            showDialog(false);
         }
-        
+
         input.setText("");
     }
+
+    // 顯示對話框
+    private void showDialog(boolean isWinner){
+        AlertDialog dialog = null;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(isWinner?"Winner":"Loser");
+        builder.setMessage(isWinner?"恭喜老爺":"謎底為:" + strAnswer);
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                restart(null);
+            }
+        });
+
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    public void restart(View v){
+        mesg.setText("");
+        intCounter = 0;
+        strAnswer = createAnswer(3);
+    }
+
 
     static String createAnswer(int n){
         // 洗牌
