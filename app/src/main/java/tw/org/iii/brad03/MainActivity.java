@@ -69,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
         strAnswer = createAnswer(3);
     }
 
+    public void exit(View v){
+        finish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+    }
 
     static String createAnswer(int n){
         // 洗牌
